@@ -48,9 +48,9 @@ if (!empty($_POST)) {
 	   $mail->Password = 'vwnwvpcitfnmfyqp';
        $mail->SMTPSecure = 'tls';
        $mail->Port = 587;
-       $mail->setFrom('konehb.allicraXXIX@gmail.com', 'Konehb');
-       $mail->addAddress('killing.jokeXXIX@gmail.com', 'Killing Joke');
-       $mail->Subject = 'New message from your website';
+       $mail->setFrom('noreply@booking.io', 'BookMe');
+       $mail->addAddress($email, $name);
+       $mail->Subject = $subject;
 
        // Enable HTML if needed
        $mail->isHTML(true);
@@ -60,8 +60,7 @@ if (!empty($_POST)) {
        echo $body;
 
        if($mail->send()){
-		   var_dump('this is it!');
-           header('Location: thank-you.html'); // Redirect to 'thank you' page. Make sure you have it
+           header('Location: index.html'); // Redirect to 'thank you' page. Make sure you have it
        } else {
 
            $errorMessage = 'Oops, something went wrong. Mailer Error: ' . $mail->ErrorInfo;
