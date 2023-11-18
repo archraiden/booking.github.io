@@ -2,6 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/vendor/autoload.php';
+include("env.php");
+
 $mail = new PHPMailer(TRUE);
 
 $errors = [];
@@ -14,7 +16,6 @@ if (!empty($_POST)) {
    $subject = $_POST['subject'];
    $message = $_POST['message'];
    
-
    if (empty($name)) {
        $errors[] = 'Name is empty';
    }
@@ -42,13 +43,13 @@ if (!empty($_POST)) {
 
 
        $mail->isSMTP();
-       $mail->Host = 'smtp.gmail.com';
+       $mail->Host = $MAIL_HOST;
        $mail->SMTPAuth = true;
-       $mail->Username = 'killing.jokeXXIX@gmail.com';
-	   $mail->Password = 'vwnwvpcitfnmfyqp';
-       $mail->SMTPSecure = 'tls';
-       $mail->Port = 587;
-       $mail->setFrom('noreply@booking.io', 'BookMe');
+       $mail->Username = $MAIL_USERNAME;
+	   $mail->Password = $MAIL_PASSWORD;
+       $mail->SMTPSecure = $MAIL_ENCRYPTION;
+       $mail->Port = $MAIL_PORT;
+       $mail->setFrom($MAIL_FROM_ADDRESS, $MAIL_FROM_NAME);
        $mail->addAddress($email, $name);
        $mail->Subject = $subject;
 
@@ -69,32 +70,3 @@ if (!empty($_POST)) {
    }
 
 }
-
-/*try {
-   
-   $mail->setFrom('konehb.allicraXXIX@gmail.com', 'Konehb');
-   $mail->addAddress('killing.jokeXXIX@gmail.com', 'Killing Joke');
-   $mail->Subject = 'Force';
-   $mail->Body = 'There is a great disturbance in the Force.';
-   $mail->isSMTP();
-   $mail->Host = 'smtp.booking.github.io';
-   $mail->SMTPAuth = TRUE;
-   $mail->SMTPSecure = 'tls';
-   $mail->Username = 'killing.jokeXXIX@gmail.com';
-   $mail->Password = 'pjhevxohtzqrhnuf';
-   $mail->Port = 587;
-   /*pjhe vxoh tzqr hnuf*/
-   
-   /* Enable SMTP debug output. */
- /*  $mail->SMTPDebug = 4;
-   
-   $mail->send();
-}
-catch (Exception $e)
-{
-   echo $e->errorMessage();
-}
-catch (\Exception $e)
-{
-   echo $e->getMessage();
-}*/
